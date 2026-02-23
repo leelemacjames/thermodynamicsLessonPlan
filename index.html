@@ -1,0 +1,1458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Year 10 Physics — Thermodynamics: From Floating to the Laws of Heat</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=IBM+Plex+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300;1,400&family=JetBrains+Mono:wght@400;500&display=swap');
+
+  :root {
+    --bg: #06100e;
+    --bg-elev: #0c1a16;
+    --bg-card: #112420;
+    --bg-week: #0a1814;
+    --text: #e8f0ec;
+    --text-dim: #9ab5a8;
+    --text-muted: #5e7d6e;
+    --teal: #2dd4bf;
+    --teal-bright: #5eead4;
+    --teal-deep: #0d9488;
+    --amber: #f59e0b;
+    --yellow: #facc15;
+    --yellow-dim: #ca8a04;
+    --rose: #fb7185;
+    --violet: #a78bfa;
+    --cyan: #22d3ee;
+    --border: #1a2e28;
+    --border-light: #264038;
+    --serif: 'DM Serif Display', Georgia, serif;
+    --sans: 'IBM Plex Sans', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --experiment: #166534;
+    --experiment-bg: #052e16;
+    --discuss: #7c2d12;
+    --discuss-bg: #451a03;
+    --theory: #1e3a5f;
+    --theory-bg: #0c1929;
+    --assess: #581c87;
+    --assess-bg: #2e1065;
+  }
+
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; font-size:16px; }
+  body { background:var(--bg); color:var(--text); font-family:var(--sans); font-weight:300; line-height:1.75; overflow-x:hidden; }
+
+  /* ═══ HERO ═══ */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column; justify-content:center;
+    align-items:center; text-align:center; padding:2rem; position:relative; overflow:hidden;
+  }
+  .hero::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse 60% 45% at 50% 50%, rgba(45,212,191,.07) 0%, transparent 70%),
+                radial-gradient(ellipse 40% 30% at 30% 70%, rgba(250,204,21,.04) 0%, transparent 60%),
+                radial-gradient(ellipse 35% 25% at 70% 30%, rgba(251,113,133,.03) 0%, transparent 60%);
+    pointer-events:none;
+  }
+  .hero-label {
+    font-family:var(--mono); font-size:.7rem; letter-spacing:.3em;
+    text-transform:uppercase; color:var(--teal); margin-bottom:1.5rem;
+    opacity:0; animation:fadeUp .8s .3s forwards;
+  }
+  .hero h1 {
+    font-family:var(--serif); font-size:clamp(2.5rem,6vw,4.5rem);
+    line-height:1.15; color:var(--text); max-width:900px;
+    opacity:0; animation:fadeUp .8s .5s forwards;
+  }
+  .hero h1 em { color:var(--teal-bright); font-style:italic; }
+  .hero-sub {
+    font-size:1.15rem; color:var(--text-dim); max-width:650px;
+    margin-top:1.5rem; opacity:0; animation:fadeUp .8s .7s forwards;
+  }
+  .hero-meta {
+    font-family:var(--mono); font-size:.75rem; color:var(--text-muted);
+    margin-top:2.5rem; letter-spacing:.1em;
+    opacity:0; animation:fadeUp .8s .9s forwards;
+  }
+  .hero-scroll {
+    position:absolute; bottom:2rem; left:50%; transform:translateX(-50%);
+    color:var(--text-muted); font-family:var(--mono); font-size:.65rem;
+    letter-spacing:.2em; text-transform:uppercase;
+    opacity:0; animation:fadeUp .8s 1.2s forwards;
+  }
+  .hero-scroll::after {
+    content:''; display:block; width:1px; height:40px;
+    background:linear-gradient(var(--teal), transparent); margin:8px auto 0;
+  }
+
+  @keyframes fadeUp {
+    from { opacity:0; transform:translateY(20px); }
+    to { opacity:1; transform:translateY(0); }
+  }
+
+  /* ═══ NARRATIVE SECTIONS ═══ */
+  .narrative {
+    max-width:780px; margin:0 auto; padding:0 1.5rem;
+  }
+  .narrative p {
+    margin-bottom:1.4rem; color:var(--text-dim); font-size:1.05rem;
+  }
+  .narrative p.lead {
+    font-size:1.25rem; color:var(--text); font-weight:400;
+  }
+  .narrative .drop-cap::first-letter {
+    font-family:var(--serif); font-size:3.5em; float:left;
+    line-height:.8; margin-right:.12em; margin-top:.08em; color:var(--teal);
+  }
+  .narrative strong { color:var(--text); font-weight:500; }
+
+  .section-break {
+    text-align:center; padding:5rem 0 3rem; position:relative;
+  }
+  .section-break::before {
+    content:''; display:block; width:60px; height:1px;
+    background:var(--border-light); margin:0 auto 1.5rem;
+  }
+  .section-number {
+    font-family:var(--mono); font-size:.65rem; letter-spacing:.3em;
+    text-transform:uppercase; color:var(--amber); display:block; margin-bottom:.5rem;
+  }
+  .section-break h2 {
+    font-family:var(--serif); font-size:clamp(1.8rem,4vw,2.8rem);
+    color:var(--text); line-height:1.2;
+  }
+  .section-break h2 em { color:var(--teal-bright); }
+
+  /* ═══ OVERVIEW GRID ═══ */
+  .overview-banner {
+    background:var(--bg-elev); border-top:1px solid var(--border);
+    border-bottom:1px solid var(--border); padding:3rem 1.5rem; margin:4rem 0;
+  }
+  .overview-grid {
+    max-width:1100px; margin:0 auto;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(240px,1fr)); gap:1.5rem;
+  }
+  .overview-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:8px;
+    padding:1.5rem; position:relative; overflow:hidden; cursor:default;
+    transition:border-color .3s, transform .3s;
+  }
+  .overview-card:hover { border-color:var(--teal-deep); transform:translateY(-2px); }
+  .overview-card .week-num {
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--amber); margin-bottom:.5rem;
+  }
+  .overview-card h3 {
+    font-family:var(--serif); font-size:1.15rem; color:var(--text);
+    margin-bottom:.6rem; line-height:1.3;
+  }
+  .overview-card p { font-size:.85rem; color:var(--text-muted); line-height:1.5; }
+  .overview-card .big-question {
+    font-style:italic; color:var(--teal); font-size:.8rem; margin-top:.8rem;
+    border-top:1px solid var(--border); padding-top:.6rem;
+  }
+
+  /* ═══ WEEK DETAIL SECTIONS ═══ */
+  .week-section {
+    padding:4rem 0; border-top:1px solid var(--border);
+  }
+  .week-header {
+    max-width:780px; margin:0 auto 2.5rem; padding:0 1.5rem;
+  }
+  .week-header .week-label {
+    font-family:var(--mono); font-size:.65rem; letter-spacing:.3em;
+    text-transform:uppercase; color:var(--amber);
+  }
+  .week-header h2 {
+    font-family:var(--serif); font-size:clamp(1.6rem,3.5vw,2.4rem);
+    color:var(--text); margin-top:.3rem; line-height:1.2;
+  }
+  .week-header .week-question {
+    font-family:var(--serif); font-style:italic; color:var(--teal-bright);
+    font-size:1.15rem; margin-top:.6rem;
+  }
+  .week-header .week-narrative {
+    color:var(--text-dim); margin-top:1rem; font-size:.95rem; max-width:650px;
+  }
+
+  /* Lesson cards */
+  .lessons-grid {
+    max-width:1100px; margin:0 auto; padding:0 1.5rem;
+    display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:1.2rem;
+  }
+  .lesson-card {
+    background:var(--bg-card); border:1px solid var(--border); border-radius:8px;
+    overflow:hidden; transition:border-color .3s;
+  }
+  .lesson-card:hover { border-color:var(--teal-deep); }
+  .lesson-top {
+    padding:1rem 1.2rem .8rem; display:flex; align-items:center; gap:.8rem;
+    border-bottom:1px solid var(--border);
+  }
+  .lesson-num {
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--text-muted); white-space:nowrap;
+  }
+  .lesson-title {
+    font-family:var(--serif); font-size:1.05rem; color:var(--text); line-height:1.3;
+  }
+  .lesson-body { padding:1rem 1.2rem; }
+  .lesson-body p { font-size:.85rem; color:var(--text-dim); margin-bottom:.6rem; line-height:1.55; }
+
+  /* Tags */
+  .tags { display:flex; flex-wrap:wrap; gap:.4rem; margin-top:.8rem; }
+  .tag {
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.1em;
+    text-transform:uppercase; padding:.25rem .6rem; border-radius:3px;
+    border:1px solid; line-height:1;
+  }
+  .tag-experiment { color:#4ade80; border-color:#166534; background:var(--experiment-bg); }
+  .tag-discussion { color:#fb923c; border-color:#7c2d12; background:var(--discuss-bg); }
+  .tag-theory { color:#60a5fa; border-color:#1e3a5f; background:var(--theory-bg); }
+  .tag-assessment { color:#c084fc; border-color:#581c87; background:var(--assess-bg); }
+  .tag-demo { color:#2dd4bf; border-color:#0d9488; background:#042f2e; }
+
+  /* Experiment boxes */
+  .experiment-box {
+    background:var(--experiment-bg); border:1px solid #166534; border-radius:6px;
+    padding:.8rem 1rem; margin:.6rem 0; font-size:.82rem;
+  }
+  .experiment-box .exp-label {
+    font-family:var(--mono); font-size:.55rem; letter-spacing:.15em;
+    text-transform:uppercase; color:#4ade80; margin-bottom:.3rem;
+  }
+  .experiment-box p { color:#86efac; margin-bottom:.3rem; }
+  .experiment-box .materials { color:#4ade80; font-style:italic; font-size:.78rem; }
+
+  /* Key formula boxes */
+  .formula-box {
+    background:var(--theory-bg); border:1px solid #1e3a5f; border-radius:6px;
+    padding:.8rem 1rem; margin:.6rem 0; text-align:center;
+  }
+  .formula-box .formula {
+    font-family:var(--mono); font-size:1.05rem; color:var(--yellow);
+    letter-spacing:.05em;
+  }
+  .formula-box .formula-note {
+    font-size:.75rem; color:var(--text-muted); margin-top:.3rem;
+  }
+
+  /* Collapsible details */
+  .lesson-card details {
+    margin-top:.6rem; border-top:1px solid var(--border); padding-top:.5rem;
+  }
+  .lesson-card summary {
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.15em;
+    text-transform:uppercase; color:var(--teal); cursor:pointer;
+    list-style:none; display:flex; align-items:center; gap:.4rem;
+  }
+  .lesson-card summary::before { content:'▸'; transition:transform .2s; }
+  .lesson-card details[open] summary::before { transform:rotate(90deg); }
+  .lesson-card .detail-content {
+    margin-top:.5rem; font-size:.8rem; color:var(--text-dim); line-height:1.5;
+    padding-left:.5rem; border-left:2px solid var(--border);
+  }
+
+  /* ═══ ARC DIAGRAM ═══ */
+  .arc-section {
+    padding:4rem 1.5rem; background:var(--bg-elev);
+    border-top:1px solid var(--border); border-bottom:1px solid var(--border);
+    margin:3rem 0;
+  }
+  .arc-title {
+    text-align:center; font-family:var(--serif); font-size:1.8rem;
+    color:var(--text); margin-bottom:2rem;
+  }
+  .arc-flow {
+    max-width:1100px; margin:0 auto;
+    display:flex; align-items:stretch; gap:0; overflow-x:auto; padding-bottom:1rem;
+  }
+  .arc-node {
+    flex:1; min-width:120px; text-align:center; padding:1rem .6rem;
+    position:relative; border-top:3px solid var(--border);
+  }
+  .arc-node.active { border-top-color:var(--teal); }
+  .arc-node .arc-wk {
+    font-family:var(--mono); font-size:.5rem; letter-spacing:.2em;
+    text-transform:uppercase; color:var(--amber);
+  }
+  .arc-node .arc-label {
+    font-family:var(--serif); font-size:.85rem; color:var(--text); margin-top:.3rem;
+    line-height:1.25;
+  }
+  .arc-node .arc-arrow {
+    position:absolute; right:-8px; top:50%; color:var(--text-muted); font-size:.7rem;
+  }
+  .arc-node:last-child .arc-arrow { display:none; }
+
+  /* ═══ PARADIGM CALLOUT ═══ */
+  .paradigm-box {
+    max-width:780px; margin:3rem auto; padding:2rem;
+    background:linear-gradient(135deg, rgba(45,212,191,.05), rgba(250,204,21,.03));
+    border:1px solid var(--border-light); border-radius:10px;
+    text-align:center;
+  }
+  .paradigm-box h3 {
+    font-family:var(--serif); font-size:1.5rem; color:var(--text); margin-bottom:1rem;
+  }
+  .paradigm-box p { color:var(--text-dim); font-size:.95rem; max-width:600px; margin:0 auto; }
+  .paradigm-columns {
+    display:grid; grid-template-columns:1fr auto 1fr; gap:1.5rem;
+    margin-top:1.5rem; align-items:start; text-align:left;
+  }
+  .paradigm-col h4 {
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.2em;
+    text-transform:uppercase; margin-bottom:.5rem;
+  }
+  .paradigm-col.macro h4 { color:var(--amber); }
+  .paradigm-col.micro h4 { color:var(--teal); }
+  .paradigm-col p { font-size:.85rem; color:var(--text-dim); }
+  .paradigm-arrow {
+    align-self:center; color:var(--text-muted); font-size:1.5rem; padding-top:1rem;
+  }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    text-align:center; padding:4rem 1.5rem 3rem;
+    border-top:1px solid var(--border);
+  }
+  footer p { font-size:.8rem; color:var(--text-muted); }
+  footer a { color:var(--teal); text-decoration:none; }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width:700px) {
+    .lessons-grid { grid-template-columns:1fr; }
+    .paradigm-columns { grid-template-columns:1fr; }
+    .paradigm-arrow { transform:rotate(90deg); text-align:center; }
+    .arc-flow { flex-direction:column; }
+    .arc-node .arc-arrow { display:none; }
+    .overview-grid { grid-template-columns:1fr; }
+  }
+
+  /* ═══ NAV BAR ═══ */
+  .week-nav {
+    position:sticky; top:0; z-index:100;
+    background:rgba(6,16,14,.92); backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border); padding:.6rem 1rem;
+    display:flex; align-items:center; gap:.5rem; overflow-x:auto;
+  }
+  .week-nav a {
+    font-family:var(--mono); font-size:.6rem; letter-spacing:.12em;
+    text-transform:uppercase; color:var(--text-muted); text-decoration:none;
+    padding:.35rem .7rem; border-radius:3px; white-space:nowrap;
+    transition:color .2s, background .2s;
+  }
+  .week-nav a:hover { color:var(--teal); background:rgba(45,212,191,.08); }
+  .week-nav .nav-title {
+    font-family:var(--serif); font-size:.8rem; color:var(--text-dim);
+    margin-right:auto; white-space:nowrap;
+  }
+</style>
+</head>
+<body>
+
+<!-- ▀▀▀ HERO ▀▀▀ -->
+<section class="hero">
+  <span class="hero-label">Year 10 Physics · Dwight School London · 8 Weeks · 32 Lessons</span>
+  <h1>Why Does <em>Ice Float</em>,<br>and Why Should<br>You Care?</h1>
+  <p class="hero-sub">A journey from floating bowls and sinking lead through pressure gradients and expanding rails to the hidden laws that govern every engine, every climate, and every cup of tea.</p>
+  <p class="hero-meta">4 × 45 min lessons per week · Pattern → Mechanism → Law</p>
+  <div class="hero-scroll">scroll to begin</div>
+</section>
+
+<!-- ▀▀▀ STICKY NAV ▀▀▀ -->
+<nav class="week-nav">
+  <span class="nav-title">Thermodynamics</span>
+  <a href="#overview">Overview</a>
+  <a href="#week1">Wk 1</a><a href="#week2">Wk 2</a><a href="#week3">Wk 3</a><a href="#week4">Wk 4</a>
+  <a href="#week5">Wk 5</a><a href="#week6">Wk 6</a><a href="#week7">Wk 7</a><a href="#week8">Wk 8</a>
+  <a href="#paradigm">Big Picture</a>
+</nav>
+
+<!-- ▀▀▀ INTRODUCTION ▀▀▀ -->
+<div class="section-break">
+  <span class="section-number">Preamble</span>
+  <h2>The <em>Pattern → Mechanism → Law</em> Engine</h2>
+</div>
+
+<div class="narrative">
+  <p class="lead drop-cap">Thermodynamics began not with equations but with observations that refused to be ignored. Water boils. Iron sinks — except when you shape it into a bowl. Rails buckle in summer. Heat always flows downhill. Every week in this course follows the same engine: we observe a <strong>pattern</strong>, propose a <strong>mechanism</strong> that explains it, then distil the mechanism into a <strong>law</strong> — a compact description we can use to predict what happens next.</p>
+
+  <p>Along the way, we'll build two parallel vocabularies. The <strong>macroscopic</strong> one speaks of pressure, volume, temperature — quantities you can read off a gauge. The <strong>microscopic</strong> one speaks of molecules bouncing, colliding, and sharing energy. The deep insight of thermodynamics is that these two descriptions are <em>the same system</em> viewed at different scales. That's the reductionist paradigm, and it is among the most powerful ideas in all of science.</p>
+
+  <p>We start where your intuition already lives — things that float and sink — and end with the zeroth and first laws of thermodynamics, the gas laws, Maxwell's Demon, and Joule's waterfall. By the end, you will understand why a perfect engine is impossible, why your coffee always cools, and what Brownian motion tells us about atoms nobody could yet see.</p>
+</div>
+
+<!-- ▀▀▀ OVERVIEW ▀▀▀ -->
+<div class="section-break" id="overview">
+  <span class="section-number">The Map</span>
+  <h2>Eight Weeks at a Glance</h2>
+</div>
+
+<div class="overview-banner">
+  <div class="overview-grid">
+    <div class="overview-card">
+      <div class="week-num">Week 1</div>
+      <h3>Density & Floating</h3>
+      <p>Mass vs weight. Density as the pivot. Why shape determines whether iron floats.</p>
+      <div class="big-question">"Which is heavier — a kilogram of lead or a kilogram of aluminium?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 2</div>
+      <h3>Pressure & Gradients</h3>
+      <p>Force per area. Atmospheric vs hydrostatic pressure. Why water and air pressure behave differently.</p>
+      <div class="big-question">"Why don't deep-sea fish explode at the surface?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 3</div>
+      <h3>Buoyancy & Displacement</h3>
+      <p>Archimedes' principle. Buoyant force = weight of displaced fluid. The aluminium-on-a-scale puzzle.</p>
+      <div class="big-question">"Why does a 1 kg block of aluminium weigh less than 1 kg of lead on a sensitive scale?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 4</div>
+      <h3>Temperature & Expansion</h3>
+      <p>Thermometric variables. Linear expansion. Kelvin and Celsius. Using expansion to measure temperature.</p>
+      <div class="big-question">"Why do railway tracks have gaps?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 5</div>
+      <h3>Heat vs Work</h3>
+      <p>Temperature ≠ heat. Specific heat capacity. Joule's experiment. Energy conservation across forms.</p>
+      <div class="big-question">"Is the water at the bottom of a waterfall warmer than at the top?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 6</div>
+      <h3>Efficiency & Machines</h3>
+      <p>Electrical input vs mechanical output. Energy degradation. Why perfect machines are impossible.</p>
+      <div class="big-question">"Where does the 'lost' energy actually go?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 7</div>
+      <h3>Gas Laws & Ideal Gases</h3>
+      <p>Boyle, Charles, Pressure Law. PV = nRT. Molecular collisions explain macroscopic patterns.</p>
+      <div class="big-question">"Why does a balloon shrink in the freezer?"</div>
+    </div>
+    <div class="overview-card">
+      <div class="week-num">Week 8</div>
+      <h3>Micro → Macro: The Laws</h3>
+      <p>Brownian motion. State vs dynamic variables. Zeroth & First Laws. Maxwell's Demon. The reductionist paradigm.</p>
+      <div class="big-question">"Can you violate the second law if you're clever enough?"</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ CONCEPTUAL ARC ═══ -->
+<div class="arc-section">
+  <div class="arc-title">Conceptual Arc</div>
+  <div class="arc-flow">
+    <div class="arc-node active"><div class="arc-wk">Wk 1–3</div><div class="arc-label">Density &<br>Pressure</div><span class="arc-arrow">→</span></div>
+    <div class="arc-node active"><div class="arc-wk">Wk 4</div><div class="arc-label">Temperature<br>& Expansion</div><span class="arc-arrow">→</span></div>
+    <div class="arc-node active"><div class="arc-wk">Wk 5–6</div><div class="arc-label">Heat, Work<br>& Efficiency</div><span class="arc-arrow">→</span></div>
+    <div class="arc-node active"><div class="arc-wk">Wk 7</div><div class="arc-label">Gas Laws<br>(Patterns)</div><span class="arc-arrow">→</span></div>
+    <div class="arc-node active"><div class="arc-wk">Wk 8</div><div class="arc-label">Micro → Macro<br>(Mechanism → Law)</div></div>
+  </div>
+</div>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 1
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week1">
+  <div class="week-header">
+    <span class="week-label">Week 01 · Lessons 1 – 4</span>
+    <h2>Density: The Pivot Between Mass and Volume</h2>
+    <div class="week-question">"Which is heavier — a kilogram of feathers or a kilogram of steel?"</div>
+    <p class="week-narrative">We begin with the most common misconception in physics: confusing <em>mass</em> with <em>density</em>. Students handle real objects, weigh them, measure their volumes, and discover that density is the intensive variable that links the extensive quantities of mass and volume. The week ends with the puzzle that sets up buoyancy: why does shape determine whether metal floats?</p>
+  </div>
+
+  <div class="lessons-grid">
+    <!-- L1 -->
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 1 · 45 min</span>
+        <span class="lesson-title">Mass ≠ Weight ≠ Density</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Hook:</strong> Show the six images from Slide 1 of the presentation. Ask: "What concept connects a toilet, Brownian motion, a crystal lattice, buoyancy, a ball on a surface, and a manometer?" Let students discuss freely for 5 minutes.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Hands-on · 15 min</div>
+          <p><strong>Solids:</strong> Students measure dimensions of regular solids (steel, aluminium, wood, foam cubes) with vernier callipers, weigh on a digital balance, calculate ρ = m/V. Rank the cubes. For irregular solids, use a eureka (displacement) can: lower the object in, catch the overflow in a measuring cylinder, read V<sub>displaced</sub>.</p>
+          <p><strong>Liquids:</strong> Weigh an empty calorimeter. Fill with a known volume of liquid (water, saltwater, cooking oil). Reweigh. Calculate average density of each fluid. Compare: why is saltwater denser than freshwater?</p>
+          <p class="materials">Materials: Vernier callipers, density cubes, irregular solids, eureka can, measuring cylinders, calorimeters, digital balance, water, saltwater, cooking oil, calculator</p>
+        </div>
+
+        <p><strong>Key distinction:</strong> Mass is intrinsic (scalar, kg). Weight is gravitational force (vector, N). Density = m/V is what connects them to size. Walk through the Weight–Density–Mass infographic (Slide 2).</p>
+
+        <div class="formula-box">
+          <div class="formula">ρ = m / V &nbsp;&nbsp;&nbsp; W = m × g</div>
+          <div class="formula-note">ρ in kg/m³ · W in N · g ≈ 9.81 m/s²</div>
+        </div>
+
+        <div class="tags">
+          <span class="tag tag-experiment">experiment</span>
+          <span class="tag tag-discussion">discussion</span>
+          <span class="tag tag-theory">definitions</span>
+        </div>
+
+        <details>
+          <summary>Teacher notes</summary>
+          <div class="detail-content">
+            Push students on: "Would these cubes have the same mass on the Moon?" (Yes.) "The same weight?" (No.) "The same density?" (Yes — density is intrinsic to the material, not the gravitational field.) This sets up the Earth-vs-Moon puzzle in Lesson 2.
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- L2 -->
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 2 · 45 min</span>
+        <span class="lesson-title">Earth vs Moon: The Invariance of Mass</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Starter:</strong> Present the aluminium-vs-lead puzzle (Slides 3–4). "Your mother gives you 1 kg of aluminium and 1 kg of lead. Which is more massive on the Moon?"</p>
+
+        <p>Students work through the four sub-questions in pairs: (a) same mass on Earth, (b) same mass on Moon, (c) different apparent weight on Earth (atmospheric buoyancy!), (d) same weight on Moon (no atmosphere).</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 15 min</div>
+          <p><strong>In water, not air:</strong> Hang a 1 kg aluminium block and a 1 kg lead block from spring balances (or Sparkvue force sensors). Read their weights in air — identical. Now lower both into a beaker of water. The aluminium block shows a <em>larger</em> reduction in apparent weight because it has a bigger volume and displaces more water. The difference is clearly visible — no need for a 0.01 g balance.</p>
+          <p class="materials">Materials: 1 kg aluminium block, 1 kg lead block, 2 × spring balances or Sparkvue force sensors, large beaker of water, retort stands + clamps</p>
+        </div>
+
+        <p><strong>Exit ticket:</strong> "Explain in two sentences why mass is invariant but weight is not."</p>
+
+        <div class="tags">
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-discussion">discussion</span>
+          <span class="tag tag-assessment">exit ticket</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- L3 -->
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 3 · 45 min</span>
+        <span class="lesson-title">The Oil Drop Experiment: Measuring the Invisible</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Big idea:</strong> If you know two of the three quantities — volume, area, height — you can calculate the third. An oil monolayer is one molecule thick. By measuring the area it spreads to, and knowing the volume of the drop, you can estimate <em>molecular size</em>. This is density thinking applied at the nanoscale.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Full Practical · 30 min</div>
+          <p><strong>Method:</strong> Dust the surface of a large tray of water with lycopodium powder. Using a micropipette, deposit a single small drop of oleic acid (dissolved in ethanol at known concentration, e.g. 1:500). The ethanol evaporates; the oil spreads into a roughly circular monolayer, pushing the lycopodium aside. Measure the diameter of the clear circle with a ruler. Repeat 3–5 times.</p>
+          <p><strong>Calculate:</strong></p>
+          <p>• Volume of oil in one drop: V = (volume of micropipette drop) × (concentration of oleic acid)<br>
+          • Area of circle: A = πr² (measure diameter, halve, square, multiply by π)<br>
+          • Height of monolayer: h = V/A<br>
+          • This h ≈ 1 × 10⁻⁹ m — roughly the length of one oleic acid molecule!</p>
+          <p><strong>Error analysis:</strong> The circle is not perfectly round — measure diameter in several directions and average. The micropipette delivers variable drop sizes — calibrate by counting drops per known volume. Discuss systematic vs random errors.</p>
+          <p class="materials">Materials: Large shallow tray, water, lycopodium powder, micropipette, oleic acid solution (in ethanol, ~0.05% v/v), ruler, calculator</p>
+        </div>
+
+        <p><strong>Connection to density:</strong> If you know the molecular height and the density of oleic acid (ρ ≈ 895 kg/m³), you can estimate the mass of a single molecule. This is the same ρ = m/V logic, now applied at molecular scale — a beautiful preview of the micro→macro bridge we'll formalise in Week 8.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">molecular size</span>
+          <span class="tag tag-theory">error analysis</span>
+        </div>
+
+        <details>
+          <summary>Teacher notes</summary>
+          <div class="detail-content">
+            This experiment has a rich history — it was first done by Lord Rayleigh and Agnes Pockels in the 1890s. It's one of the earliest estimates of molecular dimensions. Students often find it surprising that such a simple setup yields a nanometre-scale measurement. The error analysis is genuinely instructive: the dominant uncertainty is usually in the drop volume, not the circle diameter. Encourage students to think about which measurement limits their precision.
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <!-- L4 -->
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 4 · 45 min</span>
+        <span class="lesson-title">Density ↔ Pressure: Two Faces of Compactness</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Bridging lesson.</strong> Present the Density–Pressure comparison diagram (Slide 7). Both are <strong>intensive variables</strong>. Both describe "compactness" — density is mass per volume, pressure is force per area. Both use the word <em>per</em>: they are ratios.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Quick Demo · 5 min</div>
+          <p>Stand on soft ground in normal shoes, then in stilettos (or put a brick on a nail vs flat). Same weight, different pressure. Same mass, different density (compressed foam vs regular foam).</p>
+          <p class="materials">Materials: Foam block, heavy book, sharp pencil (blunt end vs point)</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">P = F / A &nbsp;&nbsp;&nbsp; Pa = N/m² = kg/(m·s²)</div>
+          <div class="formula-note">Density: kg/m³ (mass per volume) · Pressure: N/m² (force per area)</div>
+        </div>
+
+        <p><strong>Homework:</strong> "Why is a knife sharp? Answer in terms of pressure."</p>
+
+        <div class="tags">
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-theory">intensive variables</span>
+          <span class="tag tag-discussion">analogy</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 2
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week2">
+  <div class="week-header">
+    <span class="week-label">Week 02 · Lessons 5 – 8</span>
+    <h2>Pressure: From Molecular Collisions to Atmospheric Gradients</h2>
+    <div class="week-question">"Why does pressure increase with depth in water but decrease with altitude in air?"</div>
+    <p class="week-narrative">Having introduced pressure as force-per-area, we now ask: what <em>causes</em> pressure? The answer is molecular collisions — the mechanism behind the pattern. We then explore how pressure varies in fluids, discovering that water (incompressible) and air (compressible) create fundamentally different pressure profiles.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 5 · 45 min</span>
+        <span class="lesson-title">Pressure as Molecular Bombardment</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Starter:</strong> Show the gas-in-a-cylinder diagram (Slide 10) — molecules bouncing off walls. Each collision transfers momentum → force → force per area = pressure.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Simulation · 10 min</div>
+          <p>Use PhET Gas Properties simulation. Students vary number of particles, volume, and temperature. Observe pressure changes in real time. Identify qualitative patterns before formalising.</p>
+          <p class="materials">Materials: Laptops/tablets, PhET "Gas Properties" sim</p>
+        </div>
+
+        <p><strong>Key idea:</strong> Pressure is not something a gas "has" passively — it arises from the <em>process</em> of billions of collisions per second. This is the microscopic mechanism for a macroscopic measurement.</p>
+
+        <div class="formula-box">
+          <div class="formula">P = F/A = (momentum transfer per collision × collision rate) / area</div>
+          <div class="formula-note">Qualitative at this stage — we formalise in Week 7</div>
+        </div>
+
+        <div class="tags">
+          <span class="tag tag-demo">simulation</span>
+          <span class="tag tag-theory">mechanism</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 6 · 45 min</span>
+        <span class="lesson-title">Atmospheric Pressure & Altitude</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Hook:</strong> "If you carried a barometer up Everest, what would it read?" Show Slide 14 — the exponential decay of atmospheric pressure with altitude. Gravity compresses the atmosphere; more air above you = more weight pushing down = more pressure.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Demo · 10 min</div>
+          <p><strong>Crushing can:</strong> Heat a small amount of water in an aluminium can. Invert into cold water. The can crushes — atmospheric pressure wins when internal pressure drops.</p>
+          <p class="materials">Materials: Empty aluminium drinks can, Bunsen burner, trough of cold water, tongs</p>
+        </div>
+
+        <p>Discuss the simulation from Slide 14: particles concentrated at the bottom of a tall box (gravity pulls them down), rarefied at top. Pressure = weight of air column above. This is a <strong>concentration gradient</strong>.</p>
+
+        <div class="tags">
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-theory">gradient</span>
+          <span class="tag tag-discussion">exponential decay</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 7 · 45 min</span>
+        <span class="lesson-title">Hydrostatic Pressure: Linear vs Exponential</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Key contrast:</strong> Pressure increases <em>linearly</em> with depth in water but <em>exponentially</em> decreases with altitude in air (Slide 15). Why? Water is essentially <strong>incompressible</strong> — its density is constant. Air is compressible — its density varies with height.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 20 min</div>
+          <p>Use a tall plastic tube (2 m) filled with water. Attach a pressure sensor (or a simple U-tube manometer) at different depths. Record pressure vs depth. Plot the graph — it should be linear.</p>
+          <p class="materials">Materials: Tall clear tube, rubber bungs with holes, manometer/pressure sensor, ruler, water</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">P = ρgh + P<sub>atm</sub></div>
+          <div class="formula-note">Linear in h because ρ<sub>water</sub> ≈ constant</div>
+        </div>
+
+        <p><strong>Discussion:</strong> "If water were compressible like air, what would the pressure-depth graph look like?" (Exponential — more compressed water at the bottom would have higher density, creating even more pressure.)</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">compressibility</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 8 · 45 min</span>
+        <span class="lesson-title">Manometers, Barometers & Terminal Velocity</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Instruments:</strong> Introduce the manometer (Slide 11) as a device that measures pressure difference using the height of a liquid column. The barometer uses the same principle against a vacuum.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Build-it · 15 min</div>
+          <p>Build a simple U-tube manometer from clear plastic tubing and coloured water. Connect one end to a sealed syringe. Push the syringe — observe the fluid level change. This is gauge pressure in action.</p>
+          <p class="materials">Materials: Clear flexible tubing, food colouring, water, syringe, ruler, retort stand</p>
+        </div>
+
+        <p><strong>Connection to drag:</strong> The raindrop MCQ (Slide 16). At terminal velocity, air resistance (a pressure phenomenon) exactly balances weight. F<sub>drag</sub> = W. No net force → no acceleration → constant velocity. This links pressure back to Newtonian mechanics.</p>
+
+        <p><strong>Quiz:</strong> 3-question mini-assessment on pressure concepts covered so far.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">build-it</span>
+          <span class="tag tag-assessment">quiz</span>
+          <span class="tag tag-theory">instruments</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 3
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week3">
+  <div class="week-header">
+    <span class="week-label">Week 03 · Lessons 9 – 12</span>
+    <h2>Buoyancy: Why Shape Defeats Density</h2>
+    <div class="week-question">"How can a steel ship float when a steel ball sinks?"</div>
+    <p class="week-narrative">Archimedes' principle unifies everything so far: density, pressure, and weight all meet in the buoyant force. The key insight is that <em>displacement</em> — the volume of fluid pushed aside — determines whether an object floats. This is why shape matters: a flat bowl displaces more water per kilogram of iron than a compact sphere.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 9 · 45 min</span>
+        <span class="lesson-title">Archimedes' Principle</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Demo:</strong> The floating-vs-sinking bowl (Slides 12–13). Show two aluminium foil "boats" — one flat, one crushed into a ball. Same mass, same material, same density of aluminium. But the flat one floats and the ball sinks. Why?</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Hands-on · 20 min</div>
+          <p>Students make tinfoil boats and test how many pennies they can hold before sinking. Competition: whose boat holds the most? After, discuss: successful designs maximise displacement volume relative to weight.</p>
+          <p class="materials">Materials: Aluminium foil sheets (same size for all), pennies/weights, water trough</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">F<sub>b</sub> = ρ<sub>fluid</sub> × V<sub>displaced</sub> × g</div>
+          <div class="formula-note">Buoyant force = weight of displaced fluid</div>
+        </div>
+
+        <p><strong>Core logic:</strong> Object floats when F<sub>b</sub> ≥ W. Since F<sub>b</sub> depends on V<sub>displaced</sub>, and W depends on mass, the trick is to maximise the <em>envelope volume</em> (shape) while keeping the <em>material mass</em> fixed.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">competition</span>
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-theory">Archimedes</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 10 · 45 min</span>
+        <span class="lesson-title">Floating, Sinking & Neutral Buoyancy</span>
+      </div>
+      <div class="lesson-body">
+        <p>Three regimes: ρ<sub>object</sub> < ρ<sub>fluid</sub> → floats. ρ<sub>object</sub> > ρ<sub>fluid</sub> → sinks. ρ<sub>object</sub> = ρ<sub>fluid</sub> → neutrally buoyant (submarines, fish).</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 20 min</div>
+          <p><strong>Cartesian diver:</strong> Build a Cartesian diver from a plastic bottle, a small inverted test tube (or sauce packet), and water. Squeeze the bottle → diver sinks. Release → diver rises. The mechanism: squeezing compresses the air pocket, reducing volume, increasing average density.</p>
+          <p class="materials">Materials: 2 L plastic bottles, small sauce packets or inverted pen caps with Blu-Tack, water</p>
+        </div>
+
+        <p><strong>Quantitative problem:</strong> "An ice cube of mass 50 g floats in water. What volume is submerged?" (Use ρ<sub>ice</sub> = 917 kg/m³, ρ<sub>water</sub> = 1000 kg/m³.)</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">Cartesian diver</span>
+          <span class="tag tag-theory">calculations</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 11 · 45 min</span>
+        <span class="lesson-title">The Buoyancy of Air: Revisiting Aluminium vs Lead</span>
+      </div>
+      <div class="lesson-body">
+        <p>Return to the Slide 5 puzzle: on Earth, 1 kg of aluminium actually weighs <em>less</em> than 1 kg of lead on a sensitive scale. The atmosphere exerts a buoyant force on both, but the aluminium (being less dense) has a larger volume and thus displaces more air.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Calculation · 15 min</div>
+          <p>Calculate the buoyant force of air on 1 kg of aluminium (ρ = 2700 kg/m³) vs 1 kg of lead (ρ = 11340 kg/m³). Use ρ<sub>air</sub> = 1.2 kg/m³. The difference is ~0.3 grams-force — detectable on a good balance!</p>
+          <p class="materials">Materials: Calculator, worked example sheet</p>
+        </div>
+
+        <p><strong>Extension:</strong> This is why precision balances in metrology labs operate in vacuum chambers. Every measurement is a buoyancy problem.</p>
+
+        <div class="tags">
+          <span class="tag tag-theory">calculation</span>
+          <span class="tag tag-discussion">real-world</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 12 · 45 min</span>
+        <span class="lesson-title">Review & Problem Set: Density–Pressure–Buoyancy</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Consolidation lesson.</strong> Structured problem set covering all three weeks. Mix of qualitative (explain why...) and quantitative (calculate...) questions.</p>
+
+        <p><strong>Sample problems:</strong></p>
+        <p>1. A block of wood (ρ = 600 kg/m³) is placed in oil (ρ = 800 kg/m³). What fraction is submerged?<br>
+        2. Explain why a helium balloon rises using the concept of buoyancy.<br>
+        3. A diver is at 30 m depth in seawater (ρ = 1025 kg/m³). Calculate the total pressure.<br>
+        4. Why does a hot air balloon float? (Links to next week: temperature affects density.)</p>
+
+        <p><strong>Peer marking</strong> with model answers. Identify common errors.</p>
+
+        <div class="tags">
+          <span class="tag tag-assessment">problem set</span>
+          <span class="tag tag-discussion">peer marking</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 4
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week4">
+  <div class="week-header">
+    <span class="week-label">Week 04 · Lessons 13 – 16</span>
+    <h2>Temperature: What Expansion Reveals</h2>
+    <div class="week-question">"How do we use one physical change to measure another?"</div>
+    <p class="week-narrative">Temperature is our first truly abstract thermodynamic concept: you can't touch it directly, only infer it from <em>something that changes</em> — a column of mercury, the length of a metal bar, the pressure in a sealed gas. These are <strong>thermometric variables</strong>. The idea that we measure the invisible through the visible is the philosophical heart of experimental physics.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 13 · 45 min</span>
+        <span class="lesson-title">What is Temperature? Kelvin & Celsius</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Starter:</strong> "Is temperature a <em>thing</em> or a <em>measurement</em>?" Discussion. Temperature is a state variable — it describes the system's internal energy, not a substance that flows. (Heat is what flows.)</p>
+
+        <p>Introduce the Kelvin scale (Slide 19). Key facts: absolute zero = 0 K = −273.15°C. A change of 1 K = a change of 1°C. Kelvin has no negative values — it's a true ratio scale.</p>
+
+        <div class="formula-box">
+          <div class="formula">T(K) = θ(°C) + 273.15</div>
+          <div class="formula-note">Absolute zero: all molecular motion at minimum (not zero — quantum mechanics!)</div>
+        </div>
+
+        <p><strong>Fixed-points puzzle</strong> (Slide 20): A thermometer reads −10°C to 110°C. What are the lower and upper fixed points? (0°C and 100°C — the range of the <em>scale</em> differs from the range of the <em>thermometer</em>.)</p>
+
+        <div class="tags">
+          <span class="tag tag-theory">definitions</span>
+          <span class="tag tag-discussion">philosophy</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 14 · 45 min</span>
+        <span class="lesson-title">Linear Thermal Expansion</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Hook:</strong> Photo of buckled railway tracks (Slide 21). Why? Metals expand when heated. The fractional change in length is proportional to the temperature change.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 25 min</div>
+          <p>Heat a metal rod (e.g., brass or aluminium) clamped at one end using steam. Measure the expansion using a dial gauge or micrometer at the free end. Record ΔL for measured ΔT. Calculate α.</p>
+          <p class="materials">Materials: Metal expansion apparatus, steam generator, dial gauge/micrometer, thermometer, metre ruler</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">ΔL / L₀ = α · ΔT</div>
+          <div class="formula-note">α = coefficient of linear thermal expansion (K⁻¹)</div>
+        </div>
+
+        <p>Refer to the table of expansion coefficients (Slide 24): aluminium (24 × 10⁻⁶), steel (13 × 10⁻⁶), fused quartz (0.59 × 10⁻⁶). Why is Pyrex used for lab glassware? (Low α → doesn't crack with temperature changes.)</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">expansion</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 15 · 45 min</span>
+        <span class="lesson-title">Thermometric Variables: Expansion as Measurement</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Big idea:</strong> A thermometer works because some measurable property varies <em>linearly</em> (or at least monotonically) with temperature. Show Slide 23: height of mercury column vs temperature — a straight line H = mT + c.</p>
+
+        <p>Three thermometer types (Slide 25): (1) Length of mercury column, (2) Volume of gas at constant pressure, (3) Pressure of gas at constant volume (CVGT).</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Build-it · 20 min</div>
+          <p>Build a simple air thermometer: a flask of air connected by tubing to a column of coloured water. Heat the flask gently. The water level changes as the air expands. Calibrate two points (ice water = 0°C, hand warmth ≈ 37°C). Predict intermediate temperatures.</p>
+          <p class="materials">Materials: Round-bottom flask, glass/plastic tubing, coloured water, beaker, ice, thermometer for calibration</p>
+        </div>
+
+        <p><strong>Discussion:</strong> "Why should you delay the reading of a thermometer placed in a new system?" (Thermal equilibrium must be reached — the thermometer must reach the temperature of the system. This previews the Zeroth Law.)</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">build-it</span>
+          <span class="tag tag-theory">thermometric variables</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 16 · 45 min</span>
+        <span class="lesson-title">Mercury Thermometer Calculation & Isobars</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Worked example</strong> (Slide 24): Mercury thermometer, L = 109 mm at 20.0°C, α = 6.1 × 10⁻⁵ K⁻¹. Temperature increases to 30.5°C. Calculate ΔL.</p>
+        <p>ΔL = α × L₀ × ΔT = 6.1 × 10⁻⁵ × 109 × 10.5 = 0.070 mm. Tiny! This is why we need fine capillary tubes.</p>
+
+        <p><strong>Scalar fields:</strong> Temperature as a scalar field (Slide 17). Show the global temperature anomaly map and the weather map with isobars. Temperature and pressure are both scalar fields — they assign a single number to each point in space. Lines of equal value (isotherms, isobars) are the contours of these fields.</p>
+
+        <p><strong>Exit question:</strong> "A bimetallic strip bends when heated. Explain why, using the concept of different thermal expansion coefficients."</p>
+
+        <div class="tags">
+          <span class="tag tag-theory">calculation</span>
+          <span class="tag tag-theory">scalar fields</span>
+          <span class="tag tag-assessment">exit ticket</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 5
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week5">
+  <div class="week-header">
+    <span class="week-label">Week 05 · Lessons 17 – 20</span>
+    <h2>Heat ≠ Temperature: Specific Heat Capacity</h2>
+    <div class="week-question">"A warm bath versus a white-hot spark — which has more thermal energy?"</div>
+    <p class="week-narrative">The most dangerous confusion in thermodynamics is treating heat and temperature as synonyms. Temperature tells you <em>how hot</em>; heat tells you <em>how much energy transfers</em>. A bath at 40°C contains vastly more thermal energy than a spark at 3000°C. This week we quantify the distinction through specific heat capacity, and we meet Joule's extraordinary experiment connecting mechanical work to heat.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 17 · 45 min</span>
+        <span class="lesson-title">Temperature ≠ Heat: The Bath vs the Spark</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Starter:</strong> Present the Temperature–Heat comparison (Slide 27). Temperature is <em>intensive</em> (state variable, measured in K, doesn't depend on how much stuff you have). Heat is <em>extensive</em> (energy flow, measured in J, depends on mass).</p>
+
+        <p><strong>Thought experiment:</strong> "Which will burn you more — touching water at 60°C or touching a metal spoon at 60°C?" (Same temperature, but the metal <em>conducts</em> heat faster and has a different specific heat capacity.)</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Demo · 10 min</div>
+          <p>Heat equal masses of water and cooking oil to the same temperature. Place a small cube of butter on each. The oil melts the butter faster — not because it's hotter (same T), but because oil has a lower specific heat capacity, so it transfers heat differently. Actually, reconsider: present it as a question. Same T, same mass — will they melt butter at the same rate?</p>
+          <p class="materials">Materials: Two beakers, water, cooking oil, thermometer, butter cubes, hotplate</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">ΔQ = m · c · Δθ</div>
+          <div class="formula-note">c = specific heat capacity (J kg⁻¹ K⁻¹) · ΔQ = energy transferred · Δθ = temperature change</div>
+        </div>
+
+        <div class="tags">
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-theory">intensive vs extensive</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 18 · 45 min</span>
+        <span class="lesson-title">Measuring Specific Heat Capacity: Solids</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Full practical</strong> (Slide 31). Use electrical heating to measure the SHC of a metal block.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 35 min</div>
+          <p>Insert a heater and thermometer into holes in a metal block (aluminium or copper). Insulate. Apply known electrical power (P = IV) for time Δt. Record temperature rise Δθ. Calculate: c = PΔt / (m × Δθ).</p>
+          <p class="materials">Materials: Metal block with holes, immersion heater, thermometer, ammeter, voltmeter, power supply, stopwatch, insulation (e.g. cotton wool), digital balance</p>
+        </div>
+
+        <p><strong>Error discussion:</strong> Why is the measured value always <em>higher</em> than the true value? (Heat loss to surroundings means some electrical energy doesn't go into heating the block, so you overestimate the energy needed per degree.)</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">SHC</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 19 · 45 min</span>
+        <span class="lesson-title">Measuring SHC: Liquids & Comparing</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Practical:</strong> Same method, but for water in a calorimeter (Slide 32). Additional considerations: the calorimeter itself absorbs heat, so we need to account for it. Stirring ensures uniform temperature.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 25 min</div>
+          <p>Use a calorimeter (polystyrene cup works fine) with known mass of water. Heat electrically. Calculate c for water. Compare to the known value: 4200 J kg⁻¹ K⁻¹ — one of the highest of any common substance.</p>
+          <p class="materials">Materials: Polystyrene cup (calorimeter), stirrer, thermometer, immersion heater, ammeter, voltmeter, power supply, stopwatch, balance</p>
+        </div>
+
+        <p><strong>Why water is special:</strong> High SHC makes water excellent for heating systems, cooking, and climate regulation. Coastal cities have milder weather because the ocean absorbs huge amounts of energy for small temperature changes.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-discussion">real-world</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 20 · 45 min</span>
+        <span class="lesson-title">Joule's Experiment: Mechanical Work → Heat</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>The historical experiment</strong> (Slide 34). Joule measured the temperature difference between water at the top and bottom of a 400 m waterfall. PE lost = mgΔh = m × 10 × 400 = 4000m J. Heat gained = mcΔθ. Set them equal: ΔT = 4000/4200 ≈ 0.95°C.</p>
+
+        <p>This was revolutionary: it proved that mechanical energy and heat are <strong>the same thing</strong> — different forms of energy, interconvertible. This is the essence of the First Law of Thermodynamics.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Mini-experiment · 15 min</div>
+          <p><strong>Friction heating:</strong> Rub a metal rod vigorously with sandpaper for 2 minutes. Measure temperature before and after. Estimate the mechanical work done (force × distance of rubbing). Compare to mcΔθ. The numbers won't match perfectly — where did the "missing" energy go?</p>
+          <p class="materials">Materials: Copper rod, sandpaper, thermometer (or thermal camera if available), stopwatch</p>
+        </div>
+
+        <p><strong>Key equation chain:</strong> W<sub>mechanical</sub> = ΔE<sub>kinetic</sub> → ΔQ<sub>heat</sub> = mcΔθ. Energy is conserved; it transforms between forms.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">mini-experiment</span>
+          <span class="tag tag-theory">energy conservation</span>
+          <span class="tag tag-discussion">history of science</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 6
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week6">
+  <div class="week-header">
+    <span class="week-label">Week 06 · Lessons 21 – 24</span>
+    <h2>Efficiency: Why "Lost" Energy is Never Really Lost</h2>
+    <div class="week-question">"Where does the missing energy go — and why can't we get it back?"</div>
+    <p class="week-narrative">Every machine transforms energy from one form to another, but some always ends up as <em>heat</em> — the "lowest quality" form of energy. This week connects the mechanical work from Week 5 to electrical energy, introduces efficiency, and builds toward the insight that energy degradation is inevitable. We also contrast evaporation with boiling — two mechanisms for the same phase change.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 21 · 45 min</span>
+        <span class="lesson-title">Electrical Input → Mechanical Output</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Framework:</strong> Slide 35. Electrical energy in (W<sub>in</sub> = IVΔt), mechanical work out (W<sub>out</sub> = mgh or Fd), and the difference = energy degraded to heat and sound.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 25 min</div>
+          <p>Use a small electric motor to lift a known mass through a measured height. Measure I and V during operation, time the lift. Calculate W<sub>in</sub> = IVΔt, W<sub>out</sub> = mgh, and efficiency = W<sub>out</sub>/W<sub>in</sub>.</p>
+          <p class="materials">Materials: Small DC motor, pulley, string, masses, ammeter, voltmeter, power supply, stopwatch, ruler</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">Efficiency = W<sub>out</sub> / W<sub>in</sub> = useful energy / total energy input</div>
+          <div class="formula-note">Always < 1 (or < 100%) for real machines</div>
+        </div>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">efficiency</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 22 · 45 min</span>
+        <span class="lesson-title">Energy Degradation: Why Heat is "Bad" Energy</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Key insight:</strong> Heat is energy spread out over many randomly-moving particles. It's hard to collect back into organised motion. This is why efficiency < 100%: some input energy always degrades into disordered thermal energy.</p>
+
+        <p>Slide 33 — Work vs Impulse comparison. Work transfers energy via force over distance (scalar). Impulse transfers momentum via force over time (vector). Heat is the "hidden" form of energy — mechanical energy that has been redistributed into random molecular motion.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Demo · 10 min</div>
+          <p><strong>Bouncing ball:</strong> Drop a ball from 1 m. Measure the rebound height. Each bounce converts some kinetic energy to thermal energy (and sound). Plot rebound height vs bounce number. The "lost" height = energy degraded to heat.</p>
+          <p class="materials">Materials: Various balls (rubber, tennis, golf), metre ruler, camera for slow-mo if available</p>
+        </div>
+
+        <p><strong>Discussion:</strong> "Is a ball that bounces to 90% of its drop height 'more efficient' than one that bounces to 50%? In what sense?"</p>
+
+        <div class="tags">
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-discussion">energy quality</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 23 · 45 min</span>
+        <span class="lesson-title">Evaporation vs Boiling</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Phase change context</strong> (Slide 49). Both evaporation and boiling convert liquid to gas, but by different mechanisms. Evaporation is a <em>surface phenomenon</em> driven by the fastest molecules escaping — it occurs at any temperature. Boiling is a <em>bulk phenomenon</em> occurring when vapour pressure equals atmospheric pressure — it requires a specific temperature.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 15 min</div>
+          <p>Place drops of water, ethanol, and acetone on the back of students' hands. Which evaporates fastest? Which feels coldest? (Fastest evaporation = most heat removed from skin = coldest sensation.) This directly connects to the idea that the most energetic molecules escape, leaving the liquid cooler.</p>
+          <p class="materials">Materials: Dropper bottles of water, ethanol, and acetone (or nail polish remover)</p>
+        </div>
+
+        <p><strong>Connection:</strong> Evaporation is a cooling mechanism. This is why sweating works, why wet clothes feel cold, and why your coffee cools even below room temperature on a dry day (briefly). Link back to energy: the escaping molecules carry above-average kinetic energy, so the average KE (i.e., temperature) of the remaining liquid drops.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">phase change</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 24 · 45 min</span>
+        <span class="lesson-title">Mid-Course Assessment</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Written assessment</strong> covering Weeks 1–6: density, pressure, buoyancy, temperature, SHC, efficiency, energy transformations. Mix of:</p>
+        <p>• Multiple-choice (concept check, ~10 questions)<br>
+        • Short-answer calculations (3–4 problems)<br>
+        • One extended-response: "Explain, using the ideas of density, buoyancy, and thermal expansion, why a hot-air balloon floats."</p>
+
+        <p>The extended response requires students to chain: hot air is less dense → balloon's average density < air density → buoyant force > weight → it rises. This synthesises Weeks 1–4.</p>
+
+        <div class="tags">
+          <span class="tag tag-assessment">formal assessment</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 7
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week7">
+  <div class="week-header">
+    <span class="week-label">Week 07 · Lessons 25 – 28</span>
+    <h2>Gas Laws: Patterns in Pressure, Volume, and Temperature</h2>
+    <div class="week-question">"Why does a balloon shrink in the freezer?"</div>
+    <p class="week-narrative">The gas laws are among the most beautiful examples of the pattern → mechanism → law engine. Each law is an empirical pattern observed by experimentalists (Boyle, Charles, Gay-Lussac). Together they combine into PV/T = constant — the ideal gas law. But the laws are descriptions, not explanations. The explanation comes from the molecular model, which we develop in parallel.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 25 · 45 min</span>
+        <span class="lesson-title">Boyle's Law: P ∝ 1/V at Constant T</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Pattern first:</strong> Show Slide 44. For a fixed mass of gas at constant temperature, pressure and volume are inversely proportional. P₁V₁ = P₂V₂.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 25 min</div>
+          <p>Use a Boyle's Law apparatus (syringe connected to pressure gauge, or a sealed column of air with oil). Vary volume, record pressure. Plot P vs V (hyperbola) and P vs 1/V (straight line through origin).</p>
+          <p class="materials">Materials: Boyle's Law apparatus (or large syringe + pressure sensor), ruler, graph paper or laptop for plotting</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">PV = constant &nbsp;(at constant T)</div>
+          <div class="formula-note">P ∝ 1/V → halve the volume, double the pressure</div>
+        </div>
+
+        <p><strong>Mechanism</strong> (Slide 48): Same molecules in smaller space → hit walls more often → higher pressure. Temperature is constant → average speed unchanged → each collision transfers the same momentum, but collisions are more frequent.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">Boyle's Law</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 26 · 45 min</span>
+        <span class="lesson-title">Charles' Law: V ∝ T at Constant P</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Pattern:</strong> Slide 42 & 46. At constant pressure, volume is proportional to absolute temperature. All gases, when extrapolated, reach V = 0 at −273.15°C — absolute zero.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 25 min</div>
+          <p>Seal a column of air with a drop of oil in a capillary tube. Immerse in water baths of different temperatures. Measure the length of the air column (∝ volume) at each temperature. Plot V vs T(°C). Extrapolate to find where V = 0.</p>
+          <p class="materials">Materials: Capillary tubes, oil, beakers, thermometer, water baths at various temperatures (ice, room, warm, hot), ruler</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">V/T = constant &nbsp;(at constant P, T in Kelvin)</div>
+          <div class="formula-note">V₁/T₁ = V₂/T₂</div>
+        </div>
+
+        <p><strong>Mechanism:</strong> Higher temperature → molecules move faster → hit walls harder and more often → at constant pressure, the only way to compensate is to expand (more space between collisions = same collision rate per unit area).</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">Charles' Law</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 27 · 45 min</span>
+        <span class="lesson-title">Pressure Law: P ∝ T at Constant V</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Pattern:</strong> Slide 45. At constant volume, pressure is directly proportional to absolute temperature. P/T = constant.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 25 min</div>
+          <p>Use a sealed flask connected to a pressure sensor. Immerse in water baths at various temperatures. Record P vs T. Plot P vs T (K) — should pass through the origin (extrapolated) with a straight line.</p>
+          <p class="materials">Materials: Round-bottom flask with bung and tubing to pressure sensor, water baths, thermometer, data logger if available</p>
+        </div>
+
+        <div class="formula-box">
+          <div class="formula">P/T = constant &nbsp;(at constant V, T in Kelvin)</div>
+          <div class="formula-note">P₁/T₁ = P₂/T₂ · Isochore = constant volume line</div>
+        </div>
+
+        <p><strong>Connection:</strong> This is why tyre pressures increase on a hot day (constant volume, temperature rises → pressure rises). It's also the basis of the constant-volume gas thermometer (Slide 25) — the most accurate thermometer type.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">Pressure Law</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 28 · 45 min</span>
+        <span class="lesson-title">The Combined Gas Law & PV = nRT</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Synthesis:</strong> Combine Boyle's, Charles', and the Pressure Law into the ideal gas equation (Slide 47).</p>
+
+        <div class="formula-box">
+          <div class="formula">PV/T = nR = Nk = constant</div>
+          <div class="formula-note">n = moles · R = 8.314 J/(mol·K) · N = molecules · k = 1.38 × 10⁻²³ J/K</div>
+        </div>
+
+        <p><strong>Two forms, one physics:</strong> nR counts gas by moles (chemistry scale), Nk counts by individual molecules (physics scale). R/k = Avogadro's number. The bridge between macro and micro.</p>
+
+        <p><strong>Problem set:</strong> Mixed gas law problems — identify which law applies (what's held constant?), then solve. Include: "A balloon of volume 2 L at 20°C is taken outside where it's −10°C. What is its new volume?" (Charles' Law: V₂ = 2 × 263/293 = 1.80 L.)</p>
+
+        <p><strong>MCQ quiz</strong> (Slides 55, 58, 59): Gas molecules in constant-volume container — temperature increases → what happens? (Average KE increases.)</p>
+
+        <div class="tags">
+          <span class="tag tag-theory">ideal gas law</span>
+          <span class="tag tag-assessment">problems + quiz</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ████████████████████████████████████████████████████████████████████████████
+     WEEK 8
+     ████████████████████████████████████████████████████████████████████████████ -->
+<section class="week-section" id="week8">
+  <div class="week-header">
+    <span class="week-label">Week 08 · Lessons 29 – 32</span>
+    <h2>Micro → Macro: The Thermodynamic Laws</h2>
+    <div class="week-question">"Can you cheat the universe if you're clever enough?"</div>
+    <p class="week-narrative">We've spent seven weeks observing patterns and proposing mechanisms. Now we step back and ask: what are the <em>laws</em> that govern all of this? The Zeroth Law defines temperature. The First Law says energy is conserved. And Maxwell's Demon asks: could a sufficiently clever being violate the Second Law? (Spoiler: no — but understanding <em>why</em> takes us to the deepest ideas in physics.) This final week synthesises everything through the lens of the reductionist paradigm: microscopic mechanisms explain macroscopic laws.</p>
+  </div>
+
+  <div class="lessons-grid">
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 29 · 45 min</span>
+        <span class="lesson-title">Brownian Motion: Seeing the Invisible</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>Evidence for atoms:</strong> Slides 51–53. When Robert Brown looked at pollen grains in water through a microscope, he saw them jiggling randomly. Einstein explained this in 1905: invisible water molecules bombard the visible grain from all sides. Statistical imbalances in the bombardment cause the grain to wander.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Practical · 20 min</div>
+          <p>Use a smoke cell under a microscope (Slide 52). Illuminate from the side. Observe the bright specks of smoke jiggling erratically. Draw the path of a single particle over 1 minute. This is Brownian motion — direct evidence that air is made of fast-moving molecules too small to see.</p>
+          <p class="materials">Materials: Smoke cell kit, microscope, light source, incense stick or smouldering straw</p>
+        </div>
+
+        <p><strong>Key point:</strong> We are <em>inferring</em> the existence of molecules from the <em>behaviour</em> of visible particles. This is the reductionist method: explain macro phenomena through micro mechanisms.</p>
+
+        <div class="tags">
+          <span class="tag tag-experiment">practical</span>
+          <span class="tag tag-theory">evidence for atoms</span>
+          <span class="tag tag-discussion">history of science</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 30 · 45 min</span>
+        <span class="lesson-title">State Variables vs Dynamic Variables</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>The big picture</strong> (Slide 50). The microscopic world has <em>dynamic variables</em>: position, velocity, and mass of every individual molecule (x<sub>i</sub>, v<sub>i</sub>, m<sub>i</sub>). The macroscopic world has <em>state variables</em>: P, V, T, n. A thermodynamic state is a <em>set of dynamical states</em> — infinitely many microscopic arrangements give the same macroscopic reading.</p>
+
+        <p><strong>Analogy:</strong> Knowing the average height of students in a class (state variable) tells you nothing about who's tallest (dynamic variable). Many different class compositions produce the same average.</p>
+
+        <p><strong>Discussion:</strong> Slide 39 asks: "In defining energy of a system, in what sense does the system have no memory?" Answer: the state variables (P, V, T) don't encode <em>how</em> the system got there — only <em>where it is now</em>. This is what "state function" means.</p>
+
+        <div class="tags">
+          <span class="tag tag-theory">micro vs macro</span>
+          <span class="tag tag-discussion">reductionism</span>
+        </div>
+
+        <details>
+          <summary>Extension: degrees of freedom</summary>
+          <div class="detail-content">
+            A mole of gas has ~6 × 10²³ molecules, each with 3 position and 3 velocity components — that's ~3.6 × 10²⁴ dynamic variables. Yet we describe the whole system with just 3 state variables (P, V, T). This compression from 10²⁴ to 3 is the miracle of thermodynamics — and the origin of entropy.
+          </div>
+        </details>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 31 · 45 min</span>
+        <span class="lesson-title">The Zeroth and First Laws</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>The Zeroth Law</strong> (Slide 38): If A is in thermal equilibrium with B, and B with C, then A is with C. Temperature is <em>transitive</em>. This seems trivially obvious — but it's the logical foundation that makes temperature a well-defined, measurable quantity. Without it, thermometers don't work.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Demo · 10 min</div>
+          <p>Three beakers: hot water (A), lukewarm water (B), cold water (C). Put a thermometer in B — read temperature. Now put thermometers in A and C. Wait for all to equilibrate. Verify: T<sub>A</sub> = T<sub>B</sub> = T<sub>C</sub>. Temperature equalises through heat flow (Slide 37): Q flows down the temperature gradient.</p>
+          <p class="materials">Materials: Three beakers, thermometers, hot and cold water</p>
+        </div>
+
+        <p><strong>The First Law</strong> (Slide 39): Energy is conserved. ΔU = Q − W. The internal energy of a system changes by the heat added minus the work done by the system. This is Joule's insight (Week 5) expressed as a law.</p>
+
+        <p><strong>The "hidden energy" question:</strong> Mechanical energy can hide as heat (random molecular KE). But momentum can't hide the same way — the sum of random velocity vectors is zero. This is why energy conservation works differently from momentum conservation in thermodynamics.</p>
+
+        <div class="tags">
+          <span class="tag tag-demo">demo</span>
+          <span class="tag tag-theory">thermodynamic laws</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="lesson-card">
+      <div class="lesson-top">
+        <span class="lesson-num">Lesson 32 · 45 min</span>
+        <span class="lesson-title">Maxwell's Demon & Course Synthesis</span>
+      </div>
+      <div class="lesson-body">
+        <p><strong>The thought experiment</strong> (Slide 54): Imagine a demon guarding a door between two gas chambers. It lets fast (red) molecules through to the right and slow (blue) molecules to the left. The right side gets hotter, the left cooler — without any work input. This would violate the Second Law of Thermodynamics.</p>
+
+        <div class="experiment-box">
+          <div class="exp-label">Simulation · 15 min</div>
+          <p>Use the PhET Diffusion simulation (linked on Slide 54). Start with equal energies on both sides. Discuss: could you sort the particles? What would it take? (Information processing requires energy — the demon must do work to measure and decide. Landauer's principle: erasing one bit of information dissipates at least kT ln 2 of energy.)</p>
+          <p class="materials">Materials: Laptops/tablets, PhET Diffusion sim</p>
+        </div>
+
+        <p><strong>Course synthesis:</strong> Walk back through the conceptual arc. We started with floating objects (pattern). Proposed density and buoyancy (mechanism). Formalised into Archimedes' principle (law). Same engine for pressure, temperature, gas laws. The reductionist paradigm: macro patterns emerge from micro mechanisms, and we compress them into universal laws.</p>
+
+        <p><strong>Final reflection:</strong> "Write one paragraph connecting at least three ideas from this course that you didn't see as related at the beginning."</p>
+
+        <div class="tags">
+          <span class="tag tag-demo">simulation</span>
+          <span class="tag tag-discussion">Maxwell's Demon</span>
+          <span class="tag tag-assessment">reflection</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ═══ THE PARADIGM ═══ -->
+<div class="section-break" id="paradigm">
+  <span class="section-number">The Big Picture</span>
+  <h2>The <em>Reductionist</em> Paradigm</h2>
+</div>
+
+<div class="paradigm-box">
+  <h3>From 10²⁴ Variables to 3</h3>
+  <p>Thermodynamics is the science of forgetting details. A mole of gas has roughly 10²⁴ molecules, each with its own position and velocity. Yet three numbers — pressure, volume, temperature — describe the whole system. The laws of thermodynamics are the rules that govern this compression.</p>
+
+  <div class="paradigm-columns">
+    <div class="paradigm-col micro">
+      <h4>Microscopic (Dynamic)</h4>
+      <p>x<sub>i</sub>, v<sub>i</sub>, m<sub>i</sub> for each molecule<br>
+      ~10²⁴ variables<br>
+      Newton's laws govern each particle<br>
+      Time-reversible at the individual level</p>
+    </div>
+    <div class="paradigm-arrow">⟹</div>
+    <div class="paradigm-col macro">
+      <h4>Macroscopic (State)</h4>
+      <p>P, V, T, n<br>
+      3–4 variables<br>
+      Gas laws & thermodynamic laws<br>
+      Irreversible (entropy increases)</p>
+    </div>
+  </div>
+</div>
+
+<div class="narrative" style="padding-bottom:4rem;">
+  <p>The pattern → mechanism → law engine we've used all course is exactly how physics was built. Boyle measured PV. Boltzmann explained it with molecules. The First and Second Laws captured what always happens regardless of the details. This movement from description to explanation to universal principle is what makes thermodynamics — born from steam engines and waterfalls — one of the deepest and most enduring branches of physics.</p>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <p>Year 10 Physics · Thermodynamics · Dwight School London<br>
+  <span style="color:var(--text-muted);">Designed as a teaching roadmap · Pattern → Mechanism → Law</span></p>
+</footer>
+
+</body>
+</html>
